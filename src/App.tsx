@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import axios from 'axios';
+import { useEffect, useRef, useState } from 'react';
+import { capitalizeWords } from './common/utilities.common';
+import DataGrid from './components/datagrid.component';
+import { ColumnDTO } from './dtos/column.dto';
 
 function App() {
+  let columns: ColumnDTO[] = [
+    {name: 'Name', key: 'title', type: 'string'},
+    {name: 'Type', key: 'type', type: 'string'},
+    // {name: 'Category', key: 'category', type: 'string'},
+    // {name: 'Amount', key: 'amount', type: 'number'},
+  ]
+  const isLoading = useRef(false);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <div className='w-full h-full'>
+    <DataGrid 
+      columns={columns} 
+      apiLink={"https://us-central1-fir-apps-services.cloudfunctions.net/transactions"}
+      jsonPathsForColumns={[`$.[*].name`,`$.[*].type`]}
+    />
+  </div>
   );
 }
 
