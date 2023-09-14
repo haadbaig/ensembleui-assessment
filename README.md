@@ -44,6 +44,6 @@ Sample usage of the module can be found in `App.tsx` file.
 # Author Details
 
 Name: `Mirza Haad Baig` <br/>
-LinkedIn: [https://www.linkedin.com/in/haadbaig/](linkedin.com/in/haadbaig)<br/>
-npm: [https://www.npmjs.com/~haadbaig](https://www.npmjs.com/~haadbaig)<br/>
-medium: [https://www.medium.com/@haadbaig](medium.com/@haadbaig)<br/>
+LinkedIn: [linkedin.com/in/haadbaig](https://www.linkedin.com/in/haadbaig)<br/>
+npm: [npmjs.com/~haadbaig](https://www.npmjs.com/~haadbaig)<br/>
+medium: [medium.com/@haadbaig](https://www.medium.com/@haadbaig)<br/>
