@@ -15,14 +15,14 @@ The parent module is <DataGrid />. The module takes following props:
 
 `1) columns: ColumnDTO[]`
   This prop takes `array of objects` that represents the type detail of the column. Following is the format: 
-    [
+  ```[
       {
         name: string, // title of the column 
         key: string, // unique name of the column, also the key of the JSON object that wants to render in table.
         type: string, // type of the columns
       },
       ...
-    ]
+    ]```
 
 `2) apiLink: string`
   This prop takes the `API link` which returns array of objects.
