@@ -37,6 +37,6 @@ The parent module is <DataGrid />. The module takes following props:
   This prop takes a string which takes the key name of the column which you want to represent on `y-axis of graph`
 
 `6) graphType?: PlotType`
-  This prop takes the type of graph as string. Types of graphs can be found at (```https://plotly.com/javascript/basic-charts/```).
+  This prop takes the type of graph as string. Types of graphs can be found at [https://plotly.com/javascript/basic-charts/](https://plotly.com/javascript/basic-charts/).
 
 Sample usage of the module can be found in `App.tsx` file.
