@@ -14,7 +14,7 @@ This module has everything one would need in populating datagrid and visualizing
 The parent module is <DataGrid />. The module takes following props:
 
 `1) columns: ColumnDTO[]`
-  `columns` prop takes array of objects in following format: 
+  This prop takes `array of objects` that represents the type detail of the column. Following is the format: 
     [
       {
         name: string, // title of the column 
