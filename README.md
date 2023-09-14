@@ -42,9 +42,8 @@ The parent module is <DataGrid />. The module takes following props:
 Sample usage of the module can be found in `App.tsx` file.
 
 # Author Details
-```
+
 Name: Mirza Hadd Baig
 LinkedIn: [linkedin.com/in/haadbaig](linkedin.com/in/haadbaig)
 npm: [www.npmjs.com/~haadbaig](https://www.npmjs.com/~haadbaig)
 medium: [medium.com/@haadbaig](medium.com/@haadbaig)
-```
