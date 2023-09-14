@@ -12,7 +12,7 @@ This module has everything one would need in populating datagrid and visualizing
 # Using Guide
 
 The parent module is <DataGrid />. The module takes following props:
-1) columns: ColumnDTO[];
+`1) columns: ColumnDTO[]`
   `columns` prop takes array of objects in following format: 
     [
       {
@@ -23,19 +23,19 @@ The parent module is <DataGrid />. The module takes following props:
       ...
     ]
 
-2) apiLink: string;
+`2) apiLink: string`
   This prop takes the `API link` which returns array of objects.
 
-3) jsonPathsForColumns: string[]
+`3) jsonPathsForColumns: string[]`
   This prop takes array of strings, where each string represent the `JSONPath` of the attribute of the object that user wants to show in the table 
 
-4) xAxisColumn?: string; 
-  This prop takes a string which takes the key name of the column which you want to represent on x-axis of graph. 
+`4) xAxisColumn?: string`
+  This prop takes a string which takes the key name of the column which you want to represent on `x-axis of graph`
 
-5) yAxisColumn?: string;
-  This prop takes a string which takes the key name of the column which you want to represent on y-axis of graph
+`5) yAxisColumn?: string`
+  This prop takes a string which takes the key name of the column which you want to represent on `y-axis of graph`
 
-6) graphType?: PlotType;
+`6) graphType?: PlotType`
   This prop takes the type of graph as string. Types of graphs can be found at (```https://plotly.com/javascript/basic-charts/```).
 
 Sample usage of the module can be found in `App.tsx` file.
