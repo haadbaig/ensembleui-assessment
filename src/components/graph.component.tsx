@@ -9,7 +9,7 @@ const GraphPlotly: React.FC<PlotlyProps> = ({xAxisData, yAxisData, graphType, co
         {
           x: xAxisData,
           y: yAxisData,
-          type: graphType,
+          type: graphType ? graphType : "bar",
           mode: 'lines+markers',
           marker: {color: color},
         },

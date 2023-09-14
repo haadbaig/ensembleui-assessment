@@ -51,13 +51,13 @@ const DataGrid: React.FC<DataGridProps> = ({columns, apiLink, jsonPathsForColumn
           </tr>
         ))}
       </table>
-      <div className="w-full flex flex-row justify-center align-center">
+      {(xAxisColumn && yAxisColumn) ? <div className="w-full flex flex-row justify-center align-center">
         <GraphPlotly
           xAxisData={selectedDataArrays.find(x => x.key === xAxisColumn)?.data}
           yAxisData={selectedDataArrays.find(y => y.key === yAxisColumn)?.data}
           graphType={graphType}
         />
-      </div>
+      </div> : ""}
     </div>
   )
 }
