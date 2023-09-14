@@ -1,46 +1,41 @@
-# Getting Started with Create React App
+# Guidelines to run project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- `npm install` for installing dependencies.
+- `npm start` to run project.
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# Features
 
-### `npm test`
+This module has everything one would need in populating datagrid and visualizing data. This implementation solves the problem where one wants to represent the response with dense object in a tabular form. This implementation provides user with option to pass jsonPath of the properties which user wants to show in tabular form. As an additional feature, this implementation uses Plotly.js to provide feature of ploting graph between selective columns. And the best part is, user only have to pass name of columns in xAxisColumn and yAxisColumn, and name of the graph-type in which user wants to represent its data.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Using Guide
 
-### `npm run build`
+The parent module is <DataGrid />. The module takes following props:
+1) columns: ColumnDTO[];
+  `columns` prop takes array of objects in following format: 
+    [
+      {
+        name: string, // title of the column 
+        key: string, // unique name of the column, also the key of the JSON object that wants to render in table.
+        type: string, // type of the columns
+      },
+      ...
+    ]
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2) apiLink: string;
+  This prop takes the `API link` which returns array of objects.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3) jsonPathsForColumns: string[]
+  This prop takes array of strings, where each string represent the `JSONPath` of the attribute of the object that user wants to show in the table 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4) xAxisColumn?: string; 
+  This prop takes a string which takes the key name of the column which you want to represent on x-axis of graph. 
 
-### `npm run eject`
+5) yAxisColumn?: string;
+  This prop takes a string which takes the key name of the column which you want to represent on y-axis of graph
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+6) graphType?: PlotType;
+  This prop takes the type of graph as string. Types of graphs can be found at (```https://plotly.com/javascript/basic-charts/```).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Sample usage of the module can be found in `App.tsx` file.
