@@ -15,7 +15,7 @@ The parent module is <DataGrid />. The module takes following props:
 
 `1) columns: ColumnDTO[]`
   This prop takes `array of objects` that represents the type detail of the column. Following is the format: 
-  ```
+  ```JSON
     [
       {
         name: string, // title of the column 
