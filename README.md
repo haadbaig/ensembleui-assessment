@@ -12,7 +12,7 @@ This module has everything one would need in populating datagrid and visualizing
 # Using Guide
 
 The parent module is <DataGrid />. The module takes following props:
-#
+
 `1) columns: ColumnDTO[]`
   `columns` prop takes array of objects in following format: 
     [
