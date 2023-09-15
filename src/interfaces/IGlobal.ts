@@ -17,3 +17,11 @@ export interface PlotlyProps {
   color?: string;
   title?: string;
 }
+
+export interface TextFieldProp {
+  id?: string;
+  label?: string;
+  width?: string;
+  value?: string;
+  onChange?: (e: any) => any;
+}

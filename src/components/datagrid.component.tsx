@@ -17,11 +17,11 @@ const DataGrid: React.FC<DataGridProps> = ({columns, apiLink, jsonPathsForColumn
       axios
       .get(apiLink)
       .then(res => {
-        if(res?.data?.data[0]) {
+        if(res?.data) {
           jsonPathsForColumns
             .forEach(path => {
               let findName = path.split('.');
-              let data = {key: findName[findName.length-1], data:JSONPath({path:path, json: res?.data?.data})};
+              let data = {key: findName[findName.length-1], data:JSONPath({path:path, json: res?.data})};
               selectedDataArrays.push(data);
             }
           );
