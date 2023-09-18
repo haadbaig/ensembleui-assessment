@@ -1,3 +1,4 @@
+import { PlotType } from 'plotly.js';
 import { useState } from 'react';
 import DataGrid from './components/datagrid.component';
 import CustomTextField from './components/text-field.component';
@@ -19,6 +20,7 @@ function App() {
   const [api, setApi] = useState('');
   const [xAxis, setXAxis] = useState('');
   const [yAxis, setYAxis] = useState('');
+  const [chart, setChart] = useState<PlotType>();
 
   const handleJSONPath = (e: any) => {
     e.preventDefault();
@@ -47,7 +49,7 @@ function App() {
   const handleAddAxes = (e: any) => {
     e.preventDefault();
     setXAxis(e.target[0].value);
-    setXAxis(e.target[1].value);
+    setYAxis(e.target[1].value);
     e.target[0].value = '';
     e.target[1].value = '';
   }
@@ -55,6 +57,11 @@ function App() {
   const handleAPIChange = (e: any) => {
     e.preventDefault();
     setApi(e.target[0].value);
+  }
+
+  const handleChartType = (e: any) => {
+    e.preventDefault();
+    setChart(e.target[0].value);
   }
 
   const removePath = (jsonPath: string) => {
@@ -138,6 +145,19 @@ function App() {
             </div>}
           </div>
         </div>
+        <div className='flex flex-col w-1/2'>
+          <form className='flex flex-row w-full' onSubmit={handleChartType}>
+            <select className='w-full p-3 outline-none border border-slate-300 hover:border-slate-500 focus:border-slate-500 rounded h-[50px]'>
+              <option value="">Select a chart to display</option>
+              <option value="bar">Bar</option>
+              <option value="line">line</option>
+              {/* <option value="scatter">Scatter</option> */}
+            </select>
+            <button 
+              type='submit' 
+              className='px-5 bg-slate-900 disabled:bg-slate-400 rounded ml-2 h-[50px] text-white'>Add</button>
+          </form>
+        </div>
       </div>
     </div>
     <DataGrid 
@@ -146,7 +166,7 @@ function App() {
       jsonPathsForColumns={JSONPaths}
       xAxisColumn={xAxis}
       yAxisColumn={yAxis}
-      graphType="bar"
+      graphType={chart}
     />
   </div>
   );

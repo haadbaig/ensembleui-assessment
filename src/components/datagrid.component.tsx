@@ -10,6 +10,7 @@ const DataGrid: React.FC<DataGridProps> = ({columns, apiLink, jsonPathsForColumn
   const [selectedDataObjectArray, setSelectedDataObjectArray] = useState<any[]>([]);
   const [selectedDataArrays] = useState<{key: string, data: any}[]>([]);
   const [rawData, setRawData] = useState<any>();
+  const [axes, setAxes] = useState<string[]>([]);
   const isLoading = useRef(false);
   
   useEffect(() => {
@@ -34,7 +35,14 @@ const DataGrid: React.FC<DataGridProps> = ({columns, apiLink, jsonPathsForColumn
     if(jsonPathsForColumns.length > 0){
       filterData();
     }
-  },[jsonPathsForColumns, rawData])
+  },[jsonPathsForColumns])
+
+  useEffect(() => {
+    if(xAxisColumn && yAxisColumn) {
+      axes.push(xAxisColumn);
+      axes.push(yAxisColumn);
+    }
+  },[xAxisColumn, yAxisColumn, graphType])
 
   const filterData = () => {
     jsonPathsForColumns
@@ -65,10 +73,10 @@ const DataGrid: React.FC<DataGridProps> = ({columns, apiLink, jsonPathsForColumn
           </tr>
         ))}
       </table>
-      {(xAxisColumn && yAxisColumn) ? <div className="w-full flex flex-row justify-center align-center">
+      {(xAxisColumn && yAxisColumn && graphType !== undefined) ? <div className="w-full flex flex-row justify-center align-center">
         <GraphPlotly
-          xAxisData={selectedDataArrays.find(x => x.key === xAxisColumn)?.data}
-          yAxisData={selectedDataArrays.find(y => y.key === yAxisColumn)?.data}
+          xAxisData={selectedDataArrays.find(x => x.key === axes[0])?.data}
+          yAxisData={selectedDataArrays.find(y => y.key === axes[1])?.data}
           graphType={graphType}
         />
       </div> : ""}
@@ -77,19 +85,3 @@ const DataGrid: React.FC<DataGridProps> = ({columns, apiLink, jsonPathsForColumn
 }
 
 export default DataGrid;
-{/* <table className="w-full table-auto">
-  <tr className="bg-slate-300 border border-slate-700">
-    {columns?.map(col => 
-      <th className="h-10" key={col.key}>
-        {col.name}
-      </th>)
-    }
-  </tr>
-  {dataCount.map((index) => (
-    <tr className="border border-slate-700 h-[50px]">
-      {tableData.map((columnDataArray) => (
-        <td>{columnDataArray[index]}</td>
-      ))}
-    </tr>
-  ))}
-</table> */}

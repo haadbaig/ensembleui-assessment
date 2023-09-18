@@ -41,6 +41,9 @@ The parent module is <DataGrid />. The module takes following props:
 
 Sample usage of the module can be found in `App.tsx` file.
 
+# Demo
+Here is a demo Video link: [DEMO VIDEO](https://www.loom.com/share/948c2abcbc624eff90a24277179e22d9?sid=46d2620a-37f6-4f93-81b9-2772e1db4441) 
+
 # Author Details
 
 Name: `Mirza Haad Baig` <br/>
