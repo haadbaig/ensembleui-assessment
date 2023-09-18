@@ -11,34 +11,50 @@ function App() {
   //   {name: 'Amount', key: 'amount', type: 'number'},
   // ]
   // `$.flavor_text_entries.[*].flavor_text`,`$.flavor_text_entries.[*].language.name`
+  // https://pokeapi.co/api/v2/ability/1/
 
   const [JSONPaths, setJSONPaths] = useState<string[]>([]);
   const [columns, setColumns] = useState<ColumnDTO[]>([]);
   const [path, setPath] = useState('');
   const [api, setApi] = useState('');
-  const [columnName, setColumnName] = useState('');
-  const [columnKey, setColumnKey] = useState('');
-  const [columnType, setColumnType] = useState('');
   const [xAxis, setXAxis] = useState('');
   const [yAxis, setYAxis] = useState('');
 
   const handleJSONPath = (e: any) => {
     e.preventDefault();
-    setJSONPaths([...JSONPaths, path]);
+    setJSONPaths([...JSONPaths, e.target[0].value]);
     setPath('');
   }
 
   const handleAddColumn = (e: any) => {
     e.preventDefault();
-    let newColumn = {
-      name: columnName,
-      key: columnKey,
-      type: columnType
+    
+    if (e.target[0].value === '' || e.target[1].value === '' || e.target[2].value === '') {
+      return;
     }
+
+    let newColumn = {
+      name: e.target[0]?.value,
+      key: e.target[1]?.value,
+      type: e.target[2]?.value
+    }
+    e.target[0].value = ''
+    e.target[1].value = ''
+    e.target[2].value = ''
     setColumns([...columns, newColumn]);
-    setColumnName('');
-    setColumnKey('');
-    setColumnType('');
+  }
+
+  const handleAddAxes = (e: any) => {
+    e.preventDefault();
+    setXAxis(e.target[0].value);
+    setXAxis(e.target[1].value);
+    e.target[0].value = '';
+    e.target[1].value = '';
+  }
+
+  const handleAPIChange = (e: any) => {
+    e.preventDefault();
+    setApi(e.target[0].value);
   }
 
   const removePath = (jsonPath: string) => {
@@ -56,17 +72,25 @@ function App() {
       setColumns([...columns]);
     }
   }
-  
+
+  const removeAxis = () => {
+    setXAxis('');
+    setYAxis('');
+  }
+
   return (
   <div className='w-full h-full'>
     <div className='p-5 w-full flex flex-col'>
-      <form className='flex flex-col'>
-        <CustomTextField id="api_link" value={api} label='API Link' width='w-1/2' onChange={(e) => setApi(e.target.value)} />
+      <div className='flex flex-col'>
+        <form className='flex flex-row w-1/2' onSubmit={handleAPIChange}>
+          <CustomTextField id="api_link" value={api} label='API Link' width='w-full' />
+          <button className='px-5 bg-slate-900 disabled:bg-slate-400 rounded ml-2 mt-6 h-[50px] text-white'>Hit</button>
+        </form>
         <div className='flex flex-col w-1/2'>
-          <div className='flex flex-row w-full'>
+          <form className='flex flex-row w-full' onSubmit={handleJSONPath}>
             <CustomTextField id="json-path" value={path} label='JSON Path' width='w-full' onChange={(e) => setPath(e.target.value)} />
-            <button disabled={path === ''} className='px-5 bg-slate-900 disabled:bg-slate-400 rounded ml-2 mt-6 h-[50px] text-white' onClick={handleJSONPath}>Add</button>
-          </div>
+            <button disabled={path === ''} className='px-5 bg-slate-900 disabled:bg-slate-400 rounded ml-2 mt-6 h-[50px] text-white'>Add</button>
+          </form>
           <div className='my-5 flex flex-row overflow-scroll w-full'>
             {JSONPaths.map(jp =>
               <div onClick={() => removePath(jp)} className='cursor-pointer px-3 bg-slate-300 border border-slate-200 rounded-lg h-[25px]'>
@@ -76,12 +100,16 @@ function App() {
           </div>
         </div>
         <div className='flex flex-col w-1/2'>
-          <div className='flex flex-row w-full'>
-            <CustomTextField id="name" value={columnName} label='Name' width='w-full' onChange={(e) => setColumnName(e.target.value)} />
-            <CustomTextField id="key" value={columnKey} label='Key' width='w-full' onChange={(e) => setColumnKey(e.target.value)} />
-            <CustomTextField id="type" value={columnType} label='Type' width='w-full' onChange={(e) => setColumnType(e.target.value)} />
-            <button disabled={columnName === '' || columnKey === '' || columnType === ''} className='px-5 bg-slate-900 disabled:bg-slate-400 rounded ml-2 mt-6 h-[50px] text-white' onClick={handleAddColumn}>Add</button>
-          </div>
+          <form className='flex flex-row w-full' onSubmit={handleAddColumn}>
+            <CustomTextField id="name" label='Name' width='w-full' />
+            <CustomTextField id="key" label='Key' width='w-full' />
+            <CustomTextField id="type" label='Type' width='w-full' />
+            <button
+              className='px-5 bg-slate-900 disabled:bg-slate-400 rounded ml-2 mt-6 h-[50px] text-white'
+              type="submit" 
+               
+            >Add</button>
+          </form>
           <div className='my-5 flex flex-col overflow-scroll w-full'>
             {columns.map(col =>
               <div 
@@ -94,23 +122,23 @@ function App() {
           </div>
         </div>
         <div className='flex flex-col w-1/2'>
-          <div className='flex flex-row w-full'>
-            <CustomTextField id="xaxis" value={columnName} label='X-Axis' width='w-full' onChange={(e) => setXAxis(e.target.value)} />
-            <CustomTextField id="yaxis" value={columnKey} label='Y-Axis' width='w-full' onChange={(e) => setYAxis(e.target.value)} />
-            <button disabled={columnName === '' || columnKey === '' || columnType === ''} className='px-5 bg-slate-900 disabled:bg-slate-400 rounded ml-2 mt-6 h-[50px] text-white' onClick={handleAddColumn}>Add</button>
-          </div>
+          <form className='flex flex-row w-full' onSubmit={handleAddAxes}>
+            <CustomTextField id="xaxis" label='X-Axis' width='w-full'/>
+            <CustomTextField id="yaxis" label='Y-Axis' width='w-full'/>
+            <button 
+              type='submit' 
+              className='px-5 bg-slate-900 disabled:bg-slate-400 rounded ml-2 mt-6 h-[50px] text-white'>Add</button>
+          </form>
           <div className='my-5 flex flex-col overflow-scroll w-full'>
-            {columns.map(col =>
-              <div 
-                onClick={() => removeColumn(col)} 
-                className='flex flex-row justify-between cursor-pointer px-3 bg-slate-300 border border-slate-200 rounded-lg h-[25px]'
-              >
-                <span>Name: {col.name}</span><span>Key: {col.key}</span><span>Type: {col.type}</span>
-              </div>
-            )}
+            {xAxis !== '' && yAxis !== '' && <div 
+              onClick={() => removeAxis()} 
+              className='flex flex-row justify-between cursor-pointer px-3 bg-slate-300 border border-slate-200 rounded-lg h-[25px]'
+            >
+              <span>X-Axis: {xAxis}</span><span>Y-Axis: {yAxis}</span>
+            </div>}
           </div>
         </div>
-      </form>
+      </div>
     </div>
     <DataGrid 
       columns={columns} 

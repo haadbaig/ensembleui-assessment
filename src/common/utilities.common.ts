@@ -14,7 +14,7 @@ export function convertArrayInObject(arrays: any[]) {
   let columnsName: string[] = []
   let tableObjectArray: any[] = [];
   let tableObject: any = {};
-  let countArray = Array.from({ length: arrays.length > 0 ? arrays[0].data.length : 0 }, (_, index) => index);
+  let countArray = Array.from({ length: arrays.length > 0 ? arrays[0].data?.length : 0 }, (_, index) => index);
   
   arrays.forEach(arr => columnsName.push(arr.key));
   

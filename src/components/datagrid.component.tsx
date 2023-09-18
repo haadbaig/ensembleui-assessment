@@ -9,28 +9,42 @@ import GraphPlotly from "./graph.component";
 const DataGrid: React.FC<DataGridProps> = ({columns, apiLink, jsonPathsForColumns, xAxisColumn, yAxisColumn, graphType}) => {
   const [selectedDataObjectArray, setSelectedDataObjectArray] = useState<any[]>([]);
   const [selectedDataArrays] = useState<{key: string, data: any}[]>([]);
+  const [rawData, setRawData] = useState<any>();
   const isLoading = useRef(false);
   
   useEffect(() => {
-    if(!isLoading.current && selectedDataObjectArray.length < 1){
+    if(!isLoading.current){
       isLoading.current = true;
-      axios
-      .get(apiLink)
-      .then(res => {
-        if(res?.data) {
-          jsonPathsForColumns
-            .forEach(path => {
-              let findName = path.split('.');
-              let data = {key: findName[findName.length-1], data:JSONPath({path:path, json: res?.data})};
-              selectedDataArrays.push(data);
-            }
-          );
-        };
-        setSelectedDataObjectArray(convertArrayInObject(selectedDataArrays));
-        isLoading.current = false;
-      });
+      try {
+        axios
+        .get(apiLink)
+        .then(res => {
+          if(res?.data) {
+            setRawData(res.data);
+          };
+          isLoading.current = false;
+        });
+      } catch (e: any) {
+        console.log(e.message);
+      }
     };
-  },[apiLink, jsonPathsForColumns, selectedDataObjectArray, selectedDataArrays])
+  },[apiLink])
+
+  useEffect(() => {
+    if(jsonPathsForColumns.length > 0){
+      filterData();
+    }
+  },[jsonPathsForColumns, rawData])
+
+  const filterData = () => {
+    jsonPathsForColumns
+    .forEach(path => {
+      let findName = path.split('.');
+      let data = {key: findName[findName.length-1], data:JSONPath({path:path, json: rawData})};
+      selectedDataArrays.push(data);
+    });
+    setSelectedDataObjectArray(convertArrayInObject(selectedDataArrays))
+  }
 
 
   return (
