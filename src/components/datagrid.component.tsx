@@ -8,7 +8,7 @@ import GraphPlotly from "./graph.component";
 
 const DataGrid: React.FC<DataGridProps> = ({columns, apiLink, jsonPathsForColumns, xAxisColumn, yAxisColumn, graphType}) => {
   const [selectedDataObjectArray, setSelectedDataObjectArray] = useState<any[]>([]);
-  const [selectedDataArrays] = useState<{key: string, data: any}[]>([]);
+  const [selectedDataArrays, setSelectedDataArrays] = useState<{key: string, data: any}[]>([]);
   const [rawData, setRawData] = useState<any>();
   const [axes, setAxes] = useState<string[]>([]);
   const isLoading = useRef(false);
@@ -39,12 +39,14 @@ const DataGrid: React.FC<DataGridProps> = ({columns, apiLink, jsonPathsForColumn
 
   useEffect(() => {
     if(xAxisColumn && yAxisColumn) {
+      setAxes([]);
       axes.push(xAxisColumn);
       axes.push(yAxisColumn);
     }
   },[xAxisColumn, yAxisColumn, graphType])
 
   const filterData = () => {
+    setSelectedDataArrays([]);
     jsonPathsForColumns
     .forEach(path => {
       let findName = path.split('.');
@@ -56,7 +58,7 @@ const DataGrid: React.FC<DataGridProps> = ({columns, apiLink, jsonPathsForColumn
 
 
   return (
-    <div className='w-full h-full'>
+    <div className='w-full'>
       <table className="w-full table-fixed">
         <tr className="bg-slate-300 border border-slate-700">
           {columns?.map(col => 
